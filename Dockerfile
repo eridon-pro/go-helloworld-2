@@ -7,10 +7,12 @@ WORKDIR /app
 RUN go get
 
 
-RUN go build -o helloworld
+#RUN go build -o helloworld
+RUN go build -o server
 
 
 FROM alpine
-COPY --from=builder /app/helloworld /
+WORKDIR /app
+COPY --from=builder /app/server /app/
 
-CMD ["/helloworld"]
+CMD ["/app/server"]
